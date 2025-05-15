@@ -30,10 +30,11 @@ const (
 	ManagedByLabel = "alauda.io/managed-by"
 
 	// 参考: image-registry.openshift-image-registry.svc.cluster.local image-registry.openshift-image-registry.svc
-	RegistrySvcClusterLocalDomain = "internal-docker-registry.cpaas-system.svc.cluster.local"
-	RegistrySvcDomain             = "internal-docker-registry.cpaas-system.svc"
-	RegistrySvcName               = "internal-docker-registry"
-	RegistrySvcNamespace          = "cpaas-system"
+	RegistryServiceSvcClusterLocalDomain = "internal-docker-registry.cpaas-system.svc.cluster.local"
+	RegistryServiceSvcDomain             = "internal-docker-registry.cpaas-system.svc"
+	RegistryServiceDomain                = "internal-docker-registry.cpaas-system"
+	RegistrySvcName                      = "internal-docker-registry"
+	RegistrySvcNamespace                 = "cpaas-system"
 )
 
 func GenerateOperationID() string {
