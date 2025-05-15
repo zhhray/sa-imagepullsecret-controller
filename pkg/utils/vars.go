@@ -30,9 +30,9 @@ const (
 	ManagedByLabel = "alauda.io/managed-by"
 
 	// 参考: image-registry.openshift-image-registry.svc.cluster.local image-registry.openshift-image-registry.svc
-	RegistrySvcClusterLocalDomain = "proxy-docker-registry.cpaas-system.svc.cluster.local"
-	RegistrySvcDomain             = "proxy-docker-registry.cpaas-system.svc"
-	RegistrySvcName               = "proxy-docker-registry"
+	RegistrySvcClusterLocalDomain = "internal-docker-registry.cpaas-system.svc.cluster.local"
+	RegistrySvcDomain             = "internal-docker-registry.cpaas-system.svc"
+	RegistrySvcName               = "internal-docker-registry"
 	RegistrySvcNamespace          = "cpaas-system"
 )
 
