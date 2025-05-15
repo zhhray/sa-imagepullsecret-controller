@@ -1,0 +1,57 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sa-imagepullsecret-controller
+  namespace: cpaas-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sa-imagepullsecret-controller
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: sa-imagepullsecret-controller
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - sa-imagepullsecret-controller
+              topologyKey: kubernetes.io/hostname
+      containers:
+        - image: registry.alauda.cn:60080/test/sa-imagepullsecret-controller:v4.0.0-alpha.1
+          imagePullPolicy: IfNotPresent
+          name: controller
+          resources:
+            limits:
+              cpu: "250m"
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 100Mi
+      nodeSelector:
+        kubernetes.io/os: linux
+      serviceAccount: sa-imagepullsecret-controller-sa
+      serviceAccountName: sa-imagepullsecret-controller-sa
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+          operator: Exists
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+          operator: Exists
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/cpaas-system
+          operator: Exists

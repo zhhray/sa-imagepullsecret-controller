@@ -1,0 +1,4 @@
+FROM build-harbor.alauda.cn/ops/distroless-static:20220806
+WORKDIR /
+COPY bin/controller  /controller
+ENTRYPOINT ["/controller" ]
