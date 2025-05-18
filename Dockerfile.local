@@ -1,4 +1,4 @@
-FROM build-harbor.alauda.cn/ops/distroless-static:20220806
+FROM build-harbor.alauda.cn/ops/distroless-static-nonroot:12-alauda-202503180545
 WORKDIR /
 COPY bin/controller  /controller
 ENTRYPOINT ["/controller" ]

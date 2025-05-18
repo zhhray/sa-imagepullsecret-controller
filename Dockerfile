@@ -10,7 +10,7 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -o controller ./cmd/controller
 
 # Final stage
-FROM build-harbor.alauda.cn/ops/distroless-static:20220806
+FROM build-harbor.alauda.cn/ops/distroless-static-nonroot:12-alauda-202503180545
 WORKDIR /
 COPY --from=builder /app/controller /controller
 ENTRYPOINT ["/controller" ]
