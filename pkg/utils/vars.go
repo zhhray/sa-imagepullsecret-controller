@@ -2,6 +2,8 @@ package utils
 
 import (
 	"fmt"
+	"os"
+	"strings"
 	"time"
 )
 
@@ -40,4 +42,22 @@ const (
 func GenerateOperationID() string {
 	// 生成一个随机的操作ID
 	return fmt.Sprintf("%d", time.Now().UnixNano())
+}
+
+func GetRegistryDomains() []string {
+	// 返回所有可能的 Docker Registry 域名
+	domains := []string{
+		RegistryServiceDomain,
+		RegistryServiceSvcDomain,
+		RegistryServiceSvcClusterLocalDomain,
+	}
+
+	// 从环境变量中读取 REGISTRY_INGRESS_HOSTS
+	hosts := os.Getenv("REGISTRY_INGRESS_HOSTS")
+	if hosts != "" {
+		// 如果存在 REGISTRY_INGRESS_HOSTS 环境变量，则将其拆分为多个域名
+		domains = append(domains, strings.Split(hosts, ",")...)
+	}
+
+	return domains
 }

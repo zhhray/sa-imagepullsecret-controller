@@ -147,10 +147,11 @@ func (m *SecretManager) CreateSecret(sa *corev1.ServiceAccount) (*corev1.Secret,
 	authString := fmt.Sprintf("<token>:%s", token)
 	authBase64 := base64.StdEncoding.EncodeToString([]byte(authString))
 
-	dockerCfg := map[string]interface{}{
-		utils.RegistryServiceSvcClusterLocalDomain: map[string]string{"auth": authBase64},
-		utils.RegistryServiceSvcDomain:             map[string]string{"auth": authBase64},
-		utils.RegistryServiceDomain:                map[string]string{"auth": authBase64},
+	dockerCfg := make(map[string]interface{})
+	domains := utils.GetRegistryDomains()
+	authEntry := map[string]string{"auth": authBase64}
+	for _, domain := range domains {
+		dockerCfg[domain] = authEntry
 	}
 
 	// 动态获取registry服务的ClusterIP
